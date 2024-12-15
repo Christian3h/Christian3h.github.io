@@ -20,6 +20,7 @@ body{
     background-image: url(/src/img/bg.jpg);
     background-repeat: no-repeat;
     background-size: 100dvw 100dvh;
+    overflow: hidden;
     display: grid;
     place-content: center;
     height: 100dvh;
@@ -37,10 +38,10 @@ p{
 
 article{
     width: 50dvw;
-    min-width: 400px;
+
     max-width: 450px;
     height: 70dvh;
-    min-height: 600px;
+
     max-height: 700px;
     display: flex;
     flex-direction: column;
