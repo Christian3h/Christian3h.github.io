@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>music player</title>
+
+            <!--TIPOGRAFIAS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+
+</head>
+<body>
+    <article>
+
+        <section id="cover">
+            <img id="cover1" src="src/img/cover-2.png" alt="cover cancion 1">
+            <img id="cover2" src="src/img/cover-1.png" alt="cover cancion 2">
+        </section>
+
+        <section id="tituloCover" > 
+            <h1 id="tituloC">Titulo de la cancion</h1>
+            <p id="subtituloC" >Descripción de la cancion</p>
+        </section>
+        
+        <div id="cancion">
+            <section id="tiempoCancion">
+                    <p id="tiempoF">--</p>
+                    <p id="tiempo" >--</p>
+            </section>
+
+            <section id="barraTiempo">
+                    <div id =barraT>
+                        <audio id="audio1" src="src/audio/forest-lullaby-110624.mp3"></audio>
+                        <audio id="audio2" src="src/audio/lost-in-city-lights-145038.mp3"></audio>
+                    </div>
+            </section>
+        </div>
+        <section>
+            <img class="boton" id="botonA" src="src/img/Stop_and_play_fill-1.svg" alt="boton de play">
+
+            <div id="pausa">
+                <img id="pausaB" src="src/img/Stop_and_play_fill.svg" alt="pausa">
+                <img id="despausaB" src="src/img/Stop_and_play_fill_2.svg" alt="pausa">
+            </div>
+
+            <img class="boton" id="botonB" src="src/img/Stop_and_play_fill_reverse.svg" alt="no se">
+        </section>
+    </article>
+
+    <script src="js/app.js" ></script>
+</body>
+</html>
