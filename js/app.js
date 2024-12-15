@@ -1,4 +1,4 @@
-/*
+
 const audio1 = document.getElementById('audio1');
 const audio2 = document.getElementById('audio2');
 const pausa = document.getElementById('pausa');
@@ -7,6 +7,7 @@ const botonR = document.getElementById('botonB');
 const tiempo = document.getElementById('tiempo');
 const tiempoF = document.getElementById('tiempoF');
 const barraT = document.getElementById('barraT');
+const barrraTiempo = document.getElementById('barraTiempo')
 const cover1 = document.getElementById('cover1');
 const cover2 = document.getElementById('cover2');
 const tituloCancion = document.getElementById('tituloC')
@@ -61,7 +62,13 @@ pausa.addEventListener("click", (event) => {
     }
 })
 
-
+barraTiempo.addEventListener('click', (event) => {
+    const rect = barraTiempo.getBoundingClientRect();
+    const x = event.clientX - rect.left; 
+    const anchoTotal = rect.width; 
+    const porcentaje = x / anchoTotal;
+    audio.currentTime = porcentaje * audio.duration; 
+  });
 
 function tiempoCancion(varia){
     tiempoC = Math.floor(audio.duration / 60)
@@ -126,146 +133,3 @@ function tituloC(vario){
 
     
 }
-*/
-
-class MusicPlayer {
-    constructor() {
-        // Elementos DOM
-        this.audioElements = [
-            document.getElementById('audio1'),
-            document.getElementById('audio2')
-        ];
-        this.pausaButton = document.getElementById('pausa');
-        this.playButton = document.getElementById('botonA');
-        this.nextButton = document.getElementById('botonB');
-        this.currentTimeDisplay = document.getElementById('tiempo');
-        this.remainingTimeDisplay = document.getElementById('tiempoF');
-        this.progressBar = document.getElementById('barraT');
-        this.covers = [
-            document.getElementById('cover1'),
-            document.getElementById('cover2')
-        ];
-        this.songTitle = document.getElementById('tituloC');
-        this.songSubtitle = document.getElementById('subtituloC');
-
-        // Estado inicial
-        this.currentAudioIndex = 0;
-        this.isPlaying = false;
-
-        // Inicialización
-        this.init();
-    }
-
-    init() {
-        this.updateSongInfo();
-        this.addEventListeners();
-        setInterval(() => this.updateProgressBar(), 500);
-    }
-
-    addEventListeners() {
-        // Listeners para botones
-        this.playButton.addEventListener('click', () => this.switchSong());
-        this.nextButton.addEventListener('click', () => this.switchSong());
-        this.pausaButton.addEventListener('click', () => this.togglePlay());
-
-        // Listener para actualizar duración cuando se cargan metadatos
-        this.audioElements.forEach(audio => {
-            audio.addEventListener('loadedmetadata', () => {
-                this.updateDurationDisplay();
-            });
-        });
-    }
-
-    getCurrentAudio() {
-        return this.audioElements[this.currentAudioIndex];
-    }
-
-    togglePlay() {
-        const currentAudio = this.getCurrentAudio();
-        
-        if (this.isPlaying) {
-            currentAudio.pause();
-            this.updatePauseState(false);
-        } else {
-            currentAudio.play();
-            this.updatePauseState(true);
-        }
-    }
-
-    updatePauseState(isPlaying) {
-        this.isPlaying = isPlaying;
-        document.getElementById('pausaB').style.display = isPlaying ? 'none' : 'block';
-        document.getElementById('despausaB').style.display = isPlaying ? 'block' : 'none';
-    }
-
-    switchSong() {
-        // Pausa la canción actual
-        this.getCurrentAudio().pause();
-        this.updatePauseState(false);
-
-        // Cambia al siguiente audio
-        this.currentAudioIndex = (this.currentAudioIndex + 1) % this.audioElements.length;
-        
-        // Actualiza UI
-        this.updateSongInfo();
-        this.toggleCovers();
-
-        // Reproduce la nueva canción
-        this.togglePlay();
-        this.updateDurationDisplay(); // Aseguramos que se actualice la duración
-    }
-
-    updateSongInfo() {
-        const currentAudio = this.getCurrentAudio();
-        const songTitle = this.extractSongTitle(currentAudio.src);
-        this.songTitle.textContent = songTitle;
-
-        // Subtítulo dinámico
-        this.songSubtitle.textContent = (songTitle === 'Lost in City Lights') ? 'Cosmo Sheldrake' : 'Lesfm';
-
-        // Actualizar duración al cambiar de canción
-        if (!isNaN(currentAudio.duration)) {
-            this.updateDurationDisplay();
-        }
-    }
-
-    extractSongTitle(audioSrc) {
-        const fileName = audioSrc.split('/').pop().split('.')[0];
-        return fileName.split('-').filter(word => isNaN(word)).join(' ');
-    }
-
-    toggleCovers() {
-        this.covers.forEach((cover, index) => {
-            cover.style.display = index === this.currentAudioIndex ? 'block' : 'none';
-        });
-    }
-
-    updateDurationDisplay() {
-        const currentAudio = this.getCurrentAudio();
-        const duration = currentAudio.duration;
-
-        if (!isNaN(duration)) {
-            const minutes = Math.floor(duration / 60);
-            const seconds = Math.floor(duration % 60).toString().padStart(2, '0');
-            this.currentTimeDisplay.textContent = `${minutes}:${seconds}`;
-        }
-    }
-
-    updateProgressBar() {
-        const currentAudio = this.getCurrentAudio();
-        const currentTime = currentAudio.currentTime;
-        const duration = currentAudio.duration;
-
-        if (duration) {
-            const progressPercent = (currentTime / duration) * 100;
-            this.progressBar.style.width = `${progressPercent}%`;
-
-            const minutes = Math.floor(currentTime / 60);
-            const seconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
-            this.remainingTimeDisplay.textContent = `${minutes}:${seconds}`;
-        }cir, cuand
-    }
-}
-
-// Inicializa el reproductor
-const musicPlayer = new MusicPlayer();
