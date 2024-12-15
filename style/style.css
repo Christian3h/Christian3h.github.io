@@ -38,10 +38,8 @@ p{
 
 article{
     width: 50dvw;
-
     max-width: 450px;
     height: 70dvh;
-
     max-height: 700px;
     display: flex;
     flex-direction: column;
